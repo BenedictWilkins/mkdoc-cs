@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="namespaceFoos" kind="namespace" language="C#">
+    <compoundname>Foos</compoundname>
+    <innerclass refid="classFoos_1_1Foo1" prot="public">Foos::Foo1</innerclass>
+    <innernamespace refid="namespaceFoos_1_1Goos">Foos::Goos</innernamespace>
+    <briefdescription>
+<para><ref refid="namespaceFoos" kindref="compound">Foos</ref> documentation <ref refid="namespaceFoos" kindref="compound">Foos</ref> </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="source/foo.cs" line="3" column="1"/>
+  </compounddef>
+</doxygen>

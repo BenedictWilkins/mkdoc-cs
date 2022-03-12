@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classFoos_1_1Foo1" kind="class" language="C#" prot="public">
+    <compoundname>Foos::Foo1</compoundname>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classFoos_1_1Foo1_1ab8c43cc0f74fab9a16f1be5336673eac" prot="public" static="yes" mutable="no">
+        <type>string</type>
+        <definition>string Foos.Foo1.a</definition>
+        <argsstring></argsstring>
+        <name>a</name>
+        <initializer>= &quot;a&quot;</initializer>
+        <briefdescription>
+<para>Letter a </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="source/foo.cs" line="8" column="1" bodyfile="source/foo.cs" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classFoos_1_1Foo1_1a844e286d921642404bfd0df01ce0534c" prot="public" static="no" mutable="no">
+        <type>string</type>
+        <definition>string Foos.Foo1.b</definition>
+        <argsstring></argsstring>
+        <name>b</name>
+        <initializer>= &quot;b&quot;</initializer>
+        <briefdescription>
+<para>Letter b </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="source/foo.cs" line="10" column="1" bodyfile="source/foo.cs" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classFoos_1_1Foo1_1ad61fefa3ef12d567daca3246f8bf2267" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Foos.Foo1._c</definition>
+        <argsstring></argsstring>
+        <name>_c</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="source/foo.cs" line="11" column="1" bodyfile="source/foo.cs" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="classFoos_1_1Foo1_1a74ffc3f4cfd586a1f78394a1bb6faf96" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>int</type>
+        <definition>int Foos.Foo1.c</definition>
+        <argsstring></argsstring>
+        <name>c</name>
+        <briefdescription>
+<para>Integer c </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="source/foo.cs" line="13" column="1" bodyfile="source/foo.cs" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="classFoos_1_1Foo1" kindref="compound">Foo1</ref> documentation </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="source/foo.cs" line="6" column="1" bodyfile="source/foo.cs" bodystart="6" bodyend="17"/>
+    <listofallmembers>
+      <member refid="classFoos_1_1Foo1_1ad61fefa3ef12d567daca3246f8bf2267" prot="private" virt="non-virtual"><scope>Foos::Foo1</scope><name>_c</name></member>
+      <member refid="classFoos_1_1Foo1_1ab8c43cc0f74fab9a16f1be5336673eac" prot="public" virt="non-virtual"><scope>Foos::Foo1</scope><name>a</name></member>
+      <member refid="classFoos_1_1Foo1_1a844e286d921642404bfd0df01ce0534c" prot="public" virt="non-virtual"><scope>Foos::Foo1</scope><name>b</name></member>
+      <member refid="classFoos_1_1Foo1_1a74ffc3f4cfd586a1f78394a1bb6faf96" prot="public" virt="non-virtual"><scope>Foos::Foo1</scope><name>c</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

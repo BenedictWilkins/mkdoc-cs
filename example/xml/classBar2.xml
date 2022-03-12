@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classBar2" kind="class" language="C#" prot="public">
+    <compoundname>Bar2</compoundname>
+    <briefdescription>
+<para>Some Documentation </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="source/bar.cs" line="15" column="1" bodyfile="source/bar.cs" bodystart="15" bodyend="17"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

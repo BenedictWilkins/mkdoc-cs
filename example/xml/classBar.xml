@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classBar" kind="class" language="C#" prot="public">
+    <compoundname>Bar</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classBar_1a9d77bcd3a4007412a8fcbd3bf73fec61" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Bar.bar</definition>
+        <argsstring></argsstring>
+        <name>bar</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para><ref refid="classBar" kindref="compound">Bar</ref> Member </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="source/bar.cs" line="9" column="1" bodyfile="source/bar.cs" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Some Documentation </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="source/bar.cs" line="5" column="1" bodyfile="source/bar.cs" bodystart="5" bodyend="10"/>
+    <listofallmembers>
+      <member refid="classBar_1a9d77bcd3a4007412a8fcbd3bf73fec61" prot="public" virt="non-virtual"><scope>Bar</scope><name>bar</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

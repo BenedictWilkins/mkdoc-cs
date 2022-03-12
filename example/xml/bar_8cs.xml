@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="bar_8cs" kind="file" language="C#">
+    <compoundname>bar.cs</compoundname>
+    <innerclass refid="classBar" prot="public">Bar</innerclass>
+    <innerclass refid="classBar2" prot="public">Bar2</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="5" refid="classBar" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classBar" kindref="compound">Bar</ref><sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classBar_1a9d77bcd3a4007412a8fcbd3bf73fec61" kindref="member">bar</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="classBar2" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classBar2" kindref="compound">Bar2</ref><sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="source/bar.cs"/>
+  </compounddef>
+</doxygen>

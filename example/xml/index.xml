@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.13">
+  <compound refid="classBar" kind="class"><name>Bar</name>
+    <member refid="classBar_1a9d77bcd3a4007412a8fcbd3bf73fec61" kind="variable"><name>bar</name></member>
+  </compound>
+  <compound refid="classBar2" kind="class"><name>Bar2</name>
+  </compound>
+  <compound refid="classFoos_1_1Foo1" kind="class"><name>Foos::Foo1</name>
+    <member refid="classFoos_1_1Foo1_1ab8c43cc0f74fab9a16f1be5336673eac" kind="variable"><name>a</name></member>
+    <member refid="classFoos_1_1Foo1_1a844e286d921642404bfd0df01ce0534c" kind="variable"><name>b</name></member>
+    <member refid="classFoos_1_1Foo1_1ad61fefa3ef12d567daca3246f8bf2267" kind="variable"><name>_c</name></member>
+    <member refid="classFoos_1_1Foo1_1a74ffc3f4cfd586a1f78394a1bb6faf96" kind="property"><name>c</name></member>
+  </compound>
+  <compound refid="classFoos_1_1Goos_1_1gloo" kind="class"><name>Foos::Goos::gloo</name>
+    <member refid="classFoos_1_1Goos_1_1gloo_1a31f8fb8d09ec22e9efd3c2c860e2fe14" kind="variable"><name>y</name></member>
+  </compound>
+  <compound refid="structgoop" kind="struct"><name>goop</name>
+    <member refid="structgoop_1a44ca33c1c1eea0b4c9bd8be503577624" kind="variable"><name>x</name></member>
+  </compound>
+  <compound refid="namespaceFoos" kind="namespace"><name>Foos</name>
+  </compound>
+  <compound refid="namespaceFoos_1_1Goos" kind="namespace"><name>Foos::Goos</name>
+  </compound>
+  <compound refid="bar_8cs" kind="file"><name>bar.cs</name>
+  </compound>
+  <compound refid="foo_8cs" kind="file"><name>foo.cs</name>
+  </compound>
+  <compound refid="goo_8cs" kind="file"><name>goo.cs</name>
+  </compound>
+  <compound refid="dir_2e1109afed81c5fa8979494d9218ea57" kind="dir"><name>source/goo</name>
+  </compound>
+  <compound refid="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b" kind="dir"><name>source</name>
+  </compound>
+</doxygenindex>
