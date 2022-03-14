@@ -15,15 +15,16 @@ from pprint import pprint
 
 def clean(path):
     import shutil
-    shutil.rmtree(path)
+    if pathlib.Path(path).exists():
+        shutil.rmtree(path)
 
 if __name__ == "__main__":
     path = pathlib.Path(__file__).parent
     path_xml = pathlib.Path(path, "xml")
     clean(pathlib.Path(path, "docs"))
-    index, result = mkdocscs.objectify(path_xml)
+    result = mkdocscs.objectify(path_xml)
     
-    mkdocscs.markdownify(index, result)
+    mkdocscs.markdownify(result)
 
     
     

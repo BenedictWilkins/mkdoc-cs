@@ -2,7 +2,10 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
   <compounddef id="namespaceFoos_1_1Goos" kind="namespace" language="C#">
     <compoundname>Foos::Goos</compoundname>
-    <innerclass refid="classFoos_1_1Goos_1_1gloo" prot="public">Foos::Goos::gloo</innerclass>
+    <innerclass refid="classFoos_1_1Goos_1_1Gloo" prot="public">Foos::Goos::Gloo</innerclass>
+    <innerclass refid="interfaceFoos_1_1Goos_1_1IGloo" prot="public">Foos::Goos::IGloo</innerclass>
+    <innerclass refid="interfaceFoos_1_1Goos_1_1IGloo2" prot="public">Foos::Goos::IGloo2</innerclass>
+    <innernamespace refid="namespaceFoos_1_1Goos_1_1Boos">Foos::Goos::Boos</innernamespace>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

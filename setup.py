@@ -18,5 +18,5 @@ setup(name='mkdocscs',
       author='Benedict Wilkins',
       author_email='benrjw@gmail.com',
       packages=find_packages(),
-      install_requires=[],
+      install_requires=['mkdocs-awesome-pages-plugin', 'mkdocs-autolinks-plugin', 'mkdocs-section-index'],
       zip_safe=False)

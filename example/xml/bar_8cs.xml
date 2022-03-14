@@ -10,13 +10,15 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"></codeline>
-<codeline lineno="5" refid="classBar" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classBar" kindref="compound">Bar</ref><sp/>{</highlight></codeline>
-<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classBar_1a9d77bcd3a4007412a8fcbd3bf73fec61" kindref="member">bar</ref><sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="10"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15" refid="classBar2" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classBar2" kindref="compound">Bar2</ref><sp/>{</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight></codeline>
-<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="8" refid="classBar" refkind="compound"><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">abstract</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classBar" kindref="compound">Bar</ref>&lt;T&gt;<sp/></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/>where<sp/>T<sp/>:<sp/>str<sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>readonly<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="classBar_1ac8fbf67495386b58774ece53bba7f86a" kindref="member">bar</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">abstract</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classBar_1a0a4d68f4b83c6710d69ade6f7682b36b" kindref="member">barred</ref>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>b)<sp/>{}</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="classBar2" refkind="compound"><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classBar2" kindref="compound">Bar2</ref><sp/>:<sp/><ref refid="classBar" kindref="compound">Bar</ref><sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="source/bar.cs"/>
   </compounddef>

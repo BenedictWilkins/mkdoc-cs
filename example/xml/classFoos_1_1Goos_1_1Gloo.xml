@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
+  <compounddef id="classFoos_1_1Goos_1_1Gloo" kind="class" language="C#" prot="public">
+    <compoundname>Foos::Goos::Gloo</compoundname>
+    <basecompoundref refid="interfaceFoos_1_1Goos_1_1IGloo" prot="public" virt="non-virtual">Foos.Goos.IGloo</basecompoundref>
+    <basecompoundref refid="interfaceFoos_1_1Goos_1_1IGloo2" prot="public" virt="non-virtual">Foos.Goos.IGloo2</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classFoos_1_1Goos_1_1Gloo_1aa80c40c4571b3bb3bfa53e382d3e14f1" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Foos.Goos.Gloo.y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <initializer>= 0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="source/goo/goo.cs" line="18" column="1" bodyfile="source/goo/goo.cs" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="13">
+        <label>Foos.Goos.Gloo</label>
+        <link refid="classFoos_1_1Goos_1_1Gloo"/>
+        <childnode refid="14" relation="public-inheritance">
+        </childnode>
+        <childnode refid="15" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>IGloo2</label>
+        <link refid="interfaceFoos_1_1Goos_1_1IGloo2"/>
+      </node>
+      <node id="14">
+        <label>IGloo</label>
+        <link refid="interfaceFoos_1_1Goos_1_1IGloo"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="16">
+        <label>Foos.Goos.Gloo</label>
+        <link refid="classFoos_1_1Goos_1_1Gloo"/>
+        <childnode refid="17" relation="public-inheritance">
+        </childnode>
+        <childnode refid="18" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>IGloo2</label>
+        <link refid="interfaceFoos_1_1Goos_1_1IGloo2"/>
+      </node>
+      <node id="17">
+        <label>IGloo</label>
+        <link refid="interfaceFoos_1_1Goos_1_1IGloo"/>
+      </node>
+    </collaborationgraph>
+    <location file="source/goo/goo.cs" line="17" column="1" bodyfile="source/goo/goo.cs" bodystart="17" bodyend="19"/>
+    <listofallmembers>
+      <member refid="classFoos_1_1Goos_1_1Gloo_1aa80c40c4571b3bb3bfa53e382d3e14f1" prot="public" virt="non-virtual"><scope>Foos::Goos::Gloo</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

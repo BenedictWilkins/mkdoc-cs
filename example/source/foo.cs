@@ -1,5 +1,6 @@
 
 /// <summary>  Foos documentation  Foos </summary>
+/// <remarks> Some remarks? </remarks>
 namespace Foos {
 
     /// <summary>  Foo1 documentation  </summary>

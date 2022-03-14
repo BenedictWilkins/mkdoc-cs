@@ -2,12 +2,39 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
   <compounddef id="classBar2" kind="class" language="C#" prot="public">
     <compoundname>Bar2</compoundname>
+    <basecompoundref refid="classBar" prot="public" virt="non-virtual">Bar&lt; T &gt;</basecompoundref>
     <briefdescription>
 <para>Some Documentation </para>    </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="source/bar.cs" line="15" column="1" bodyfile="source/bar.cs" bodystart="15" bodyend="17"/>
+    <inheritancegraph>
+      <node id="5">
+        <label>Bar2</label>
+        <link refid="classBar2"/>
+        <childnode refid="6" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Bar</label>
+        <link refid="classBar"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="7">
+        <label>Bar2</label>
+        <link refid="classBar2"/>
+        <childnode refid="8" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Bar</label>
+        <link refid="classBar"/>
+      </node>
+    </collaborationgraph>
+    <location file="source/bar.cs" line="19" column="1" bodyfile="source/bar.cs" bodystart="19" bodyend="21"/>
     <listofallmembers>
+      <member refid="classBar_1ac8fbf67495386b58774ece53bba7f86a" prot="public" virt="non-virtual"><scope>Bar2</scope><name>bar</name></member>
+      <member refid="classBar_1a0a4d68f4b83c6710d69ade6f7682b36b" prot="public" virt="pure-virtual"><scope>Bar2</scope><name>barred</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

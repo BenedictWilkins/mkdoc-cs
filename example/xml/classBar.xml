@@ -1,11 +1,17 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.13">
-  <compounddef id="classBar" kind="class" language="C#" prot="public">
+  <compounddef id="classBar" kind="class" language="C#" prot="public" abstract="yes">
     <compoundname>Bar</compoundname>
-      <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="classBar_1a9d77bcd3a4007412a8fcbd3bf73fec61" prot="public" static="no" mutable="no">
-        <type>int</type>
-        <definition>int Bar.bar</definition>
+    <derivedcompoundref refid="classBar2" prot="public" virt="non-virtual">Bar2</derivedcompoundref>
+    <templateparamlist>
+      <param>
+        <type>T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classBar_1ac8fbf67495386b58774ece53bba7f86a" prot="public" static="yes" mutable="no">
+        <type>readonly int</type>
+        <definition>readonly int Bar&lt; T &gt;.bar</definition>
         <argsstring></argsstring>
         <name>bar</name>
         <initializer>= 0</initializer>
@@ -15,16 +21,48 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="source/bar.cs" line="9" column="1" bodyfile="source/bar.cs" bodystart="9" bodyend="-1"/>
+        <location file="source/bar.cs" line="11" column="1" bodyfile="source/bar.cs" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classBar_1a0a4d68f4b83c6710d69ade6f7682b36b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="pure-virtual">
+        <type>abstract void</type>
+        <definition>abstract void Bar&lt; T &gt;.barred</definition>
+        <argsstring>(float b)</argsstring>
+        <name>barred</name>
+        <param>
+          <type>float</type>
+          <declname>b</declname>
+        </param>
+        <briefdescription>
+<para><ref refid="classBar" kindref="compound">Bar</ref> Method </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="source/bar.cs" line="13" column="1" bodyfile="source/bar.cs" bodystart="13" bodyend="13"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Some Documentation </para>    </briefdescription>
     <detaileddescription>
-    </detaileddescription>
-    <location file="source/bar.cs" line="5" column="1" bodyfile="source/bar.cs" bodystart="5" bodyend="10"/>
+<para>Some remarks? </para>    </detaileddescription>
+    <inheritancegraph>
+      <node id="3">
+        <label>Bar2</label>
+        <link refid="classBar2"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Bar&lt; T &gt;</label>
+        <link refid="classBar"/>
+      </node>
+    </inheritancegraph>
+    <location file="source/bar.cs" line="9" column="1" bodyfile="source/bar.cs" bodystart="8" bodyend="14"/>
     <listofallmembers>
-      <member refid="classBar_1a9d77bcd3a4007412a8fcbd3bf73fec61" prot="public" virt="non-virtual"><scope>Bar</scope><name>bar</name></member>
+      <member refid="classBar_1ac8fbf67495386b58774ece53bba7f86a" prot="public" virt="non-virtual"><scope>Bar</scope><name>bar</name></member>
+      <member refid="classBar_1a0a4d68f4b83c6710d69ade6f7682b36b" prot="public" virt="pure-virtual"><scope>Bar</scope><name>barred</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>
