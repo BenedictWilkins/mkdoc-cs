@@ -11,19 +11,21 @@ import pathlib
 import glob
 from pprint import pprint
 import functools
+from this import d
 
-from markdown import markdown
 
 from .._objectify import Member, Variable, Function, Compound, Namespace, Reference, Documentation
 
-_BASE_PATH = str(pathlib.Path('./docs').resolve())
+_BASE_PATH = pathlib.Path('./docs')
+_ROOT_PATH = pathlib.Path('./docs')
 
 class Markdownify:
 
     def __init__(self, path, navigation_title=None, navigation_file=".pages"):
-        path = pathlib.Path(_BASE_PATH, path).resolve()
-        path.parent.mkdir(parents=True, exist_ok=True) # make them if not already made...
-        self.path = path
+        path = pathlib.Path(_BASE_PATH, path)
+        self.relative_path = self._relative_path(path) # use to create relative links...
+        self.path = path.resolve()
+        self.path.parent.mkdir(parents=True, exist_ok=True) # make them if not already made...
         self.navigation_file = navigation_file
         self.navigation_title = navigation_title
         self._pages()
@@ -34,9 +36,19 @@ class Markdownify:
             Documentation:self.markdownify_documentation,
             Variable:self.markdownify_variable,
             Function:self.markdownify_function}
+    
+    def _relative_path(self, path):
+        i = 0
+        while path.parent != _ROOT_PATH:
+            if path == path.parent:
+                raise ValueError("_ROOT_PATH {_ROOT_PATH} has been incorrectly set, failed to match with {self.path}.")
+            path = path.parent
+            i += 1
+        return "../"*i
 
     def _pages(self):
         path_pages = pathlib.Path(self.path.parent, self.navigation_file)
+        #print("PAGES:", path_pages)
         if not path_pages.exists():
             with path_pages.open('w') as f:
                 f.write("nav:\n")
@@ -86,9 +98,11 @@ class Markdownify:
                 return self.markdownify_name(ref.obj)
             else:
                 text = ref.obj.name.split("::")[-1]
-                return f"[{text}]({ref.id}.md)"
+                # TODO make this relative link less hacky...
+                return f"[{text}]({self.relative_path}{ref.obj.kind.capitalize()}/{ref.id}/)" 
         else:
-            return f"[{text}]({ref.id}.md)" # this kind of link requires auto link package...
+            # TODO make this relative link less hacky...
+            return f"[{text}]({self.relative_path}{ref.obj.kind.capitalize()}/{ref.id}/)" 
    
     def markdownify_documentation(self, doc : Documentation):
         short = "".join([self.markdownify(x) for x in doc.short])
@@ -109,5 +123,10 @@ class Markdownify:
 
     @classmethod
     def set_base_path(cls, path):
-        _BASE_PATH = path
+        global _BASE_PATH
+        _BASE_PATH = pathlib.Path(path)
 
+    @classmethod
+    def set_root_path(cls, path):
+        global _ROOT_PATH
+        _ROOT_PATH = pathlib.Path(path)

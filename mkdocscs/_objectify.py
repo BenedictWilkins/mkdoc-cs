@@ -9,6 +9,7 @@ __status__ = "Development"
 
 import glob
 import itertools
+from multiprocessing.sharedctypes import Value
 import pathlib
 from pickle import GLOBAL
 from pprint import pprint
@@ -60,7 +61,12 @@ def get_path(x):
     return x.find('location').attrib[FILE]
 
 def get_inherit_from(x):
-    return [Reference(y.attrib['refid'], None) for y in x.findall('basecompoundref')]
+    def _get_reference(y):
+        if 'refid' in y.keys():
+            return Reference(y.attrib['refid'], None)
+        else:
+            return Reference("__External", None) # The reference is external, there is not link to it...
+    return [_get_reference(y) for y in x.findall('basecompoundref')]
 
 def get_inherit_by(x):
     return [Reference(y.attrib['refid'], None) for y in x.findall('derivedcompoundref')]
@@ -89,6 +95,20 @@ def get_members(x):
 def get_definition(x):
     return x.find(DEFINITION).text
 
+class ParseError(Exception):
+    pass 
+
+def _parse_decorate(fun):
+    def _parse(x, **kwargs):
+        try:
+            return fun(x, **kwargs)
+        except Exception as e:
+            if isinstance(e, ParseError):
+                raise e
+            else:
+                raise ParseError(f"Failed to parse element {x}", e)
+    return _parse
+
 class DocumentationList:
 
     def __init__(self):
@@ -112,10 +132,16 @@ class DocumentationList:
 
 class Reference:
 
+    EXTERNAL_ID = "__External"
     __reference__ = {}
 
     def __new__(cls, *args, **kwargs):
         id, obj = args
+        id = id.strip()
+        if len(id) == 0: # an empty id means the ref could not be found, use EXTERNAL
+            id = Reference.EXTERNAL_ID 
+        #print("REF", id)
+            
         if id not in Reference.__reference__:
             instance = super().__new__(cls)
             instance.id, instance.obj = id, obj
@@ -134,6 +160,8 @@ class Reference:
     def __repr__(self):
         return str(self)
 
+
+
 @dataclass
 class Documentation:
 
@@ -148,6 +176,17 @@ class Object:
     def __post_init__(self):
         self.id.obj = self
 
+@dataclass 
+class External(Object):
+    id : Reference
+    name : str
+    kind : str
+    def get_parents(self):
+        return []
+
+EXTERNAL_REF = Reference(Reference.EXTERNAL_ID, None)
+EXTERNAL_REF.obj = External(EXTERNAL_REF, "External", "external")
+
 @dataclass
 class Member(Object):
 
@@ -157,6 +196,7 @@ class Member(Object):
     modifier: List[str] # TODO
     docstring: Documentation
 
+    @_parse_decorate
     def parse(x):
         kind = get_kind(x)
         if kind == 'variable':
@@ -172,9 +212,9 @@ class Member(Object):
 class Variable(Member): 
 
     type : str
-
+    @_parse_decorate
     def parse(x):
-        (*modifiers, type) = get_type(x).split(" ") # hmm...
+        (*modifiers, type) = ["", "TODO"] # get_type(x).split(" ") # hmm...
         return Variable(get_id(x), get_name(x), get_kind(x), get_protection(x), modifiers, 
                 get_documentation(x), type)
 
@@ -186,9 +226,9 @@ class Variable(Member):
 class Function(Member):
     
     args : List[Tuple[str, str]]
-
+    @_parse_decorate
     def parse(x):
-        modifiers = get_type(x).split(" ") # hmm... includes return type...
+        modifiers = [] #get_type(x).split(" ") # hmm... includes return type...
         return Function(get_id(x), get_name(x), get_kind(x), get_protection(x), modifiers, 
                 get_documentation(x), get_arguments(x))
 
@@ -217,6 +257,7 @@ class Compound(Object):
             return self._name + f"&lt;{','.join(self.template)}&gt;" # this might have to be refactored ...s
         return self._name
 
+    @_parse_decorate
     def parse(x):
         members = [Member.parse(m) for m in get_members(x)]
         return Compound(get_id(x), get_name(x), get_kind(x), get_protection(x), get_documentation(x), 
@@ -226,20 +267,25 @@ class Compound(Object):
     def get_parents(self):
         return [self.namespace, *self.namespace.obj.get_parents()]
 
+
+
+
 @dataclass
 class Namespace(Object): 
 
     name: str
+    kind: str
     docstring: Documentation
     parent: Reference
     namespaces: List[Reference]
     classes: List[Reference]
 
+    @_parse_decorate
     def parse(x):
         assert x.attrib[KIND] == NAMESPACE
         classes = [Reference(str(c.attrib['refid']), None) for c in x.findall('innerclass')]
         namespaces = [Reference(str(c.attrib['refid']), None) for c in x.findall('innernamespace')]
-        return Namespace(get_id(x), get_name(x), get_documentation(x), GLOBAL_NAMESPACE.id, namespaces, classes)
+        return Namespace(get_id(x), get_name(x),  get_kind(x), get_documentation(x), GLOBAL_NAMESPACE.id, namespaces, classes)
 
     def get_compounds(self):
         return self.classes
@@ -251,7 +297,7 @@ class Namespace(Object):
                 yield x
         return [x for x in parents(self.id)]
 
-GLOBAL_NAMESPACE = Namespace(Reference('namespace__Global', None), "Global", Documentation(["Global namespace."],[]), None, [], [])
+GLOBAL_NAMESPACE = Namespace(Reference('namespace__Global', None), "Global", "namespace", Documentation(["Global namespace."],[]), None, [], [])
 
 @dataclass 
 class Directory(Object):
@@ -260,6 +306,7 @@ class Directory(Object):
     docstring: Documentation
     files: List[str]
 
+    @_parse_decorate
     def parse(x):
         assert x.attrib['kind'] == DIRECTORY
         files = [str(f.text) for f in x.findall(FILE)]
@@ -270,21 +317,27 @@ class File(Object):
 
     path: str
     
+    @_parse_decorate
     def parse(x):
         return File(get_id(x), get_path(x)) 
 
 class Index:
 
+    @_parse_decorate
     def parse(x):
-        results = dict()
-        for key, group in itertools.groupby(x.findall('compound'), lambda y : y.attrib[KIND]):
-            results[key] = [Reference(y.attrib['refid'], None) for y in group]
-        return SimpleNamespace(**results)
+        result = dict()
+        all = [(Reference(z.attrib['refid'], None), z.attrib[KIND].strip()) for z in x.findall('compound')]
+        key_l =  lambda y : y[1]
+        for key, group in itertools.groupby(sorted(all, key=key_l), key=key_l):
+            result[key] = [x[0] for x in group]
+        return SimpleNamespace(**result)
 
+@_parse_decorate
 def parse_compounddef(x):
     y = PARSERS[x.attrib['kind']](x)
     return y
 
+@_parse_decorate
 def parse_documentation(x):
     def parse_ref(x, doc):
         doc.append(Reference(x.attrib['refid'], None))
@@ -332,11 +385,10 @@ PARSERS = {
 }
 
 def files(path):
-    yield from glob.glob(str(pathlib.Path(path, "*.xml")), recursive=True)
+    yield from sorted(glob.glob(str(pathlib.Path(path, "*.xml")), recursive=True))
 
 def objectify(path):
     path = pathlib.Path(path).resolve()
-    Log.log(f"PARSING: {path}")
     result = {}
     for file in files(path):
         result[pathlib.Path(file).with_suffix('').name] = parse(file)

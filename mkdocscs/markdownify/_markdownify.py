@@ -51,8 +51,10 @@ def page_class(markdownify : Markdownify, cls : Reference):
     markdownify.title(4, f"Namespace: {markdownify.markdownify(cls.obj.namespace)}")    
     markdownify.write(f"Source: {cls.obj.path}\n")
 
-def markdownify(data, path="./docs", **kwargs):
+def markdownify(data, root_path="./docs", path="./docs", **kwargs):
     Markdownify.set_base_path(path)
+    Markdownify.set_root_path(root_path)
+
     print("-----------------------------------")
     index = data['index']
     # MARKDOWNIFY NAMESPACES
@@ -79,12 +81,13 @@ def markdownify(data, path="./docs", **kwargs):
         m.list(classes)
     
     for cls in sorted(classes, key = lambda x: x.obj.name):
-        print(cls.obj.name)
+        #print(cls.obj.name)
         with Markdownify(f"Interface/{cls.id}.md", navigation_title=cls.obj.name) as m:
             page_class(m, cls)
 
     # order navigation...
-    with pathlib.Path(f"docs/{kwargs.get('navigation_file', '.pages')}").open("a") as pages:
+    pages_path = pathlib.Path(path, kwargs.get('navigation_file', '.pages'))
+    with pages_path.open("a") as pages:
         pages.write("nav: \n")
         pages.write("    - Namespace\n")
         pages.write("    - Class\n")

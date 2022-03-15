@@ -1,6 +1,3 @@
-rm -rf docs
-rm -rf xml
-
-doxygen doxygen_config.txt  # install with sudo apt-get install doxygen
-#doxybook -i tmp/xml -o docs/Reference/ -t mkdocs # install with pip install doxybook
-#moxygen -c -o docs/Reference/ tmp/xml/
+# EXAMPLE command
+# Will build the example project using doxygen, clean the directory and output to docs/Reference
+python -m mkdocscs --doxygen doxygen_config.txt --clean --output docs/Reference

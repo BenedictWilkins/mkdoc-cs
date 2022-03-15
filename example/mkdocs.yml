@@ -1,10 +1,13 @@
 site_name: Example Site
 theme: 
     name: readthedocs
+site_dir: site
+
 plugins:
     - search
     - awesome-pages:
         collapse_single_pages: true
-    - autolinks
-    - section-index
+    # - autolinks
+    # - section-index
     # - literate-nav
+

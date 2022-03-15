@@ -8,8 +8,12 @@ __email__ = "benrjw@gmail.com"
 __status__ = "Development"
 
 import argparse
-from operator import mod
+from multiprocessing.sharedctypes import Value
 import pathlib
+import subprocess
+import re
+
+from pprint import pprint
 
 from . import objectify, markdownify
 from . import Log
@@ -25,22 +29,66 @@ parser.add_argument("--output", "-o", type=str, default="./docs", help="Director
 parser.add_argument("--doxygen", "-d", type=str, default=None, help="Run doxygen using the given config file to generate xml files. The --xml argument will be replaced by doxygen configuration.")
 parser.add_argument("--clean", "-c", default=False, action='store_true', help="Clean output directory of old files.")
 parser.add_argument("--silent", default=False, action='store_true', help="Suppress warnings and info.")
+parser.add_argument("--project", "-p", type=str, default="./docs", help="Project root, 'docs' by default. This may differ from --output if working in a subproject, this path is used to compute relative links.")
+parser.add_argument('--namespace', help='Namespaces to include in generated documentation. Defaults to all found.', nargs='+', type=str, default=["Global"])
 
 args = parser.parse_args()
-print(args)
+
+if args.doxygen is not None:
+    Log.log(f"Running doxygen with config {args.doxygen}")
+    doxygen_out = pathlib.Path("./doxygen.log").resolve()
+    with doxygen_out.open('w') as f:
+        result = subprocess.run(["doxygen", args.doxygen], stdout=f, stderr=f)
+        if result.returncode != 0:
+            raise ValueError(f"doxygen ran with errors, please check the log file {doxygen_out}. Consider running 'doxygen' manually to avoid issues.")
+    # find output directory from config
+    with pathlib.Path(args.doxygen).open('r') as f:
+        for line in f.readlines():
+            if re.search("OUTPUT_DIRECTORY[ |\t]+=", line):
+                args.xml = pathlib.Path(line.split("=")[-1].strip(), "xml").resolve()
+                Log.log(f"Using doxygen xml directory {args.output}")
 
 xml_dir = pathlib.Path(args.xml).resolve()
 xml_dir.mkdir(parents=False, exist_ok=True)
+if next(xml_dir.iterdir(), None) is None:
+    raise ValueError(f"Doxygen output directory {xml_dir} cannot be empty, please run 'doxygen' manually or specify the '--doxygen' option.")
+
 out_dir = pathlib.Path(args.output).resolve()
 out_dir.mkdir(parents=False, exist_ok=True)
 if not args.clean and next(out_dir.iterdir(), None) is not None:
     Log.warn(f"Output directory {out_dir} is not empty and the '--clean' option wasn't specified, old documentation may remain.")
-if args.clean:
-    clean(out_dir)
 
 # TODO clean the output dir? maybe do it after generating files?
+if args.clean:
+    Log.log(f"Cleaning directory {out_dir}")
+    clean(out_dir)
+
 objects = objectify(str(xml_dir))
-markdownify(objects, path=out_dir)
 
-    
+pprint(objects['index'].__dict__['class'])
 
+pprint(objects['classWorldOfBugs_1_1Agent'])
+
+
+# hacky way to filter namespaces... TODO do this in objectify?
+def filter_namespaces():
+    index = objects['index']
+    include_namespaces = []
+    for n in [n for n in index.namespace if n.obj.name in args.namespace]:
+        include_namespaces.append(n)
+        include_namespaces.extend(n.obj.namespaces)
+    index.namespace = include_namespaces
+
+    Log.log(f"Using namespaces: {[x.obj.name for x in index.namespace]}")
+
+    def _keep(namespace):
+        return namespace in index.namespace
+
+    for k,v in index.__dict__.items():
+        if len(v) == 0 or not hasattr(v[0].obj, 'namespace'):
+            continue
+        index.__dict__[k] = [x for x in v if _keep(x.obj.namespace)]
+
+filter_namespaces()
+
+markdownify(objects, path=args.output, root_path=args.project)
