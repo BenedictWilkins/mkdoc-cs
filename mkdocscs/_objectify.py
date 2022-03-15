@@ -20,6 +20,8 @@ import xml.etree.ElementTree as ET
 from dataclasses import dataclass
 from typing import List, Dict, Tuple, Union
 
+from .utils import Log
+
 ID = "id"
 NAME = "compoundname"
 NAME2 = "name"
@@ -300,7 +302,7 @@ def parse_documentation(x):
     return doc
 
 def parse(file):
-    print("PARSING:", file)
+    Log.log(f"PARSING {file}")
     obj = ET.parse(file).getroot()
     if obj.tag == "doxygen":
         parsed = []
@@ -334,7 +336,7 @@ def files(path):
 
 def objectify(path):
     path = pathlib.Path(path).resolve()
-    print(f"PARSING: {path}")
+    Log.log(f"PARSING: {path}")
     result = {}
     for file in files(path):
         result[pathlib.Path(file).with_suffix('').name] = parse(file)

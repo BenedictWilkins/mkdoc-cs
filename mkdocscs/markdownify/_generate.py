@@ -16,10 +16,12 @@ from markdown import markdown
 
 from .._objectify import Member, Variable, Function, Compound, Namespace, Reference, Documentation
 
+_BASE_PATH = str(pathlib.Path('./docs').resolve())
+
 class Markdownify:
 
     def __init__(self, path, navigation_title=None, navigation_file=".pages"):
-        path = pathlib.Path(path).resolve()
+        path = pathlib.Path(_BASE_PATH, path).resolve()
         path.parent.mkdir(parents=True, exist_ok=True) # make them if not already made...
         self.path = path
         self.navigation_file = navigation_file
@@ -56,6 +58,9 @@ class Markdownify:
 
     def newline(self):
         self.file.write("\n")
+
+    def hline(self):
+        self.file.write("\n------------------\n")
 
     def title(self, level, x):
         assert level > 0
@@ -101,4 +106,8 @@ class Markdownify:
 
     def markdownify_function(self, obj):
         return f"```{obj.definition}```"
+
+    @classmethod
+    def set_base_path(cls, path):
+        _BASE_PATH = path
 

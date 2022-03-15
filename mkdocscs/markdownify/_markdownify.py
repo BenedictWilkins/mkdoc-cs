@@ -9,6 +9,7 @@ __status__ = "Development"
 import pathlib
 import glob
 from pprint import pprint
+import itertools
 
 from markdown import Markdown, markdown
 
@@ -29,14 +30,15 @@ def page_namespace(markdownify : Markdownify, namespace : Namespace):
 def page_class(markdownify : Markdownify, cls : Reference):
     markdownify.title(1, f"{cls.obj.kind.capitalize()} {markdownify.markdownify_name(cls.obj)}") 
     
-    markdownify.write(cls.obj.protection)
     markdownify.newline()
     markdownify.write(markdownify.markdownify(cls.obj.docstring))
     markdownify.newline()
+    markdownify.hline()
 
-    markdownify.list(cls.obj.members)
-    for m in cls.obj.members:
-        print(cls.id, m.id)
+    for key, group in itertools.groupby(cls.obj.members, key=lambda x: x.kind):
+        markdownify.title(4, key.capitalize())
+        markdownify.list(list(group))
+        markdownify.hline()
 
     if len(cls.obj.inherit_from) > 0:
         markdownify.title(4, "Inherits")
@@ -49,36 +51,36 @@ def page_class(markdownify : Markdownify, cls : Reference):
     markdownify.title(4, f"Namespace: {markdownify.markdownify(cls.obj.namespace)}")    
     markdownify.write(f"Source: {cls.obj.path}\n")
 
-def markdownify(data, **kwargs):
-
+def markdownify(data, path="./docs", **kwargs):
+    Markdownify.set_base_path(path)
     print("-----------------------------------")
     index = data['index']
     # MARKDOWNIFY NAMESPACES
     namespaces = index.__dict__['namespace']
-    with Markdownify("docs/Namespace/index.md") as m:
+    with Markdownify(f"Namespace/index.md") as m:
         m.title(1, "Namespaces")
         m.list(namespaces) # TODO could nest them...
     for namespace in namespaces:
-        with Markdownify(f"docs/Namespace/{namespace.id}.md", navigation_title=namespace.obj.name) as m:
+        with Markdownify(f"Namespace/{namespace.id}.md", navigation_title=namespace.obj.name) as m:
             page_namespace(m, namespace)
 
     # MARKDOWNIFY CLASSES
     classes = index.__dict__.get('class', [])
-    with Markdownify("docs/Class/index.md") as m:
+    with Markdownify("Class/index.md") as m:
         m.title(1, "Classes")
         m.list(classes)
     for cls in sorted(classes, key = lambda x: x.obj.name):
-        with Markdownify(f"docs/Class/{cls.id}.md", navigation_title=cls.obj.name) as m:
+        with Markdownify(f"Class/{cls.id}.md", navigation_title=cls.obj.name) as m:
             page_class(m, cls)
 
     classes = index.__dict__.get('interface', [])
-    with Markdownify("docs/Interface/index.md") as m:
+    with Markdownify("Interface/index.md") as m:
         m.title(1, "Interfaces")
         m.list(classes)
     
     for cls in sorted(classes, key = lambda x: x.obj.name):
         print(cls.obj.name)
-        with Markdownify(f"docs/Interface/{cls.id}.md", navigation_title=cls.obj.name) as m:
+        with Markdownify(f"Interface/{cls.id}.md", navigation_title=cls.obj.name) as m:
             page_class(m, cls)
 
     # order navigation...
