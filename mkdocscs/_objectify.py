@@ -9,13 +9,9 @@ __status__ = "Development"
 
 import glob
 import itertools
-from multiprocessing.sharedctypes import Value
 import pathlib
-from pickle import GLOBAL
 from pprint import pprint
-from pydoc import Doc
-from re import I
-from tkinter.font import names
+
 from types import SimpleNamespace
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
@@ -79,7 +75,9 @@ def get_template(x):
     return ts
 
 def get_type(x):
-    return x.find('type').text
+    text = x.find('type').text
+    text = text if text is not None else "" # if theres not text, probably a constructor or something...
+    return text
 
 def get_arguments(x):
     return x.find('argsstring').text # TODO lazy...
@@ -214,13 +212,15 @@ class Variable(Member):
     type : str
     @_parse_decorate
     def parse(x):
-        (*modifiers, type) = ["", "TODO"] # get_type(x).split(" ") # hmm...
+        (*modifiers, type) = get_type(x).split(" ") # hmm...
+        #modifiers = modifiers if len(modifiers) > 0 else []
+
         return Variable(get_id(x), get_name(x), get_kind(x), get_protection(x), modifiers, 
                 get_documentation(x), type)
 
     @property
     def definition(self):
-        return ' '.join([self.protection, *self.modifier, self.name])
+        return ' '.join([self.protection, *self.modifier, self.type, self.name])
 
 @dataclass
 class Function(Member):
@@ -228,7 +228,8 @@ class Function(Member):
     args : List[Tuple[str, str]]
     @_parse_decorate
     def parse(x):
-        modifiers = [] #get_type(x).split(" ") # hmm... includes return type...
+        modifiers = get_type(x)
+        modifiers = modifiers.split(" ") if len(modifiers) > 0 else []
         return Function(get_id(x), get_name(x), get_kind(x), get_protection(x), modifiers, 
                 get_documentation(x), get_arguments(x))
 
@@ -266,9 +267,6 @@ class Compound(Object):
 
     def get_parents(self):
         return [self.namespace, *self.namespace.obj.get_parents()]
-
-
-
 
 @dataclass
 class Namespace(Object): 

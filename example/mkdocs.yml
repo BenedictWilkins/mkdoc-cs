@@ -8,6 +8,6 @@ plugins:
     - awesome-pages:
         collapse_single_pages: true
     # - autolinks
-    # - section-index
+    - section-index
     # - literate-nav
 

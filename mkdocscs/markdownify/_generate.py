@@ -8,11 +8,7 @@ __email__ = "benrjw@gmail.com"
 __status__ = "Development"
 
 import pathlib
-import glob
 from pprint import pprint
-import functools
-from this import d
-
 
 from .._objectify import Member, Variable, Function, Compound, Namespace, Reference, Documentation
 

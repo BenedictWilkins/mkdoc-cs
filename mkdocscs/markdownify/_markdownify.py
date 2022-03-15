@@ -11,8 +11,6 @@ import glob
 from pprint import pprint
 import itertools
 
-from markdown import Markdown, markdown
-
 from ._generate import Markdownify
 
 from .._objectify import Namespace, Reference, Documentation 

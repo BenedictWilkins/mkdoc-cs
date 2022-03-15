@@ -8,7 +8,6 @@ __email__ = "benrjw@gmail.com"
 __status__ = "Development"
 
 import argparse
-from multiprocessing.sharedctypes import Value
 import pathlib
 import subprocess
 import re
@@ -64,11 +63,6 @@ if args.clean:
     clean(out_dir)
 
 objects = objectify(str(xml_dir))
-
-pprint(objects['index'].__dict__['class'])
-
-pprint(objects['classWorldOfBugs_1_1Agent'])
-
 
 # hacky way to filter namespaces... TODO do this in objectify?
 def filter_namespaces():
